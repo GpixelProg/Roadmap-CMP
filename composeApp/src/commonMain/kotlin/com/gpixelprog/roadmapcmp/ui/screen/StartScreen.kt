@@ -35,7 +35,7 @@ class StartScreen : Screen {
         val navigator = LocalNavigator.currentOrThrow
 
         LazyVerticalStaggeredGrid(
-            columns = StaggeredGridCells.Adaptive(170.dp),
+            columns = StaggeredGridCells.Adaptive(200.dp),
             verticalItemSpacing = 16.dp,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier

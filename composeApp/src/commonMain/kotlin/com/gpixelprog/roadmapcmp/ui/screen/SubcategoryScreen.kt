@@ -2,6 +2,7 @@ package com.gpixelprog.roadmapcmp.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -31,34 +33,38 @@ class SubcategoryScreen(private val subcategoryModel: List<SubcategoryModel>) : 
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
 
-        Column {
-            IconButton(
-                onClick = { navigator.pop() },
+        LazyVerticalStaggeredGrid(
+            columns = StaggeredGridCells.Adaptive(200.dp),
+            verticalItemSpacing = 16.dp,
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing)
+                .padding(horizontal = 16.dp)
+                .padding(bottom = 16.dp)
+        ) {
+            item(
+                span = StaggeredGridItemSpan.FullLine
             ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    tint = Color.White.copy(alpha = 0.87f)
-                )
+                Row {
+                    IconButton(
+                        onClick = { navigator.pop() },
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                        )
+                    }
+                }
             }
 
-            LazyVerticalStaggeredGrid(
-                columns = StaggeredGridCells.Adaptive(170.dp),
-                verticalItemSpacing = 16.dp,
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .windowInsetsPadding(WindowInsets.safeDrawing)
-                    .padding(16.dp)
-            ) {
-                items(subcategoryModel) { subModel ->
-                    CardBoard(
-                        onClick = { openUrl(subModel.link) },
-                        image = subModel.image,
-                        title = subModel.title,
-                        description = subModel.description
-                    )
-                }
+            items(subcategoryModel) { subModel ->
+                CardBoard(
+                    onClick = { openUrl(subModel.link) },
+                    image = subModel.image,
+                    title = subModel.title,
+                    description = subModel.description
+                )
             }
         }
     }

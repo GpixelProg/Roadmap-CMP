@@ -20,6 +20,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -38,7 +39,8 @@ fun CardBoard(
     description: String?,
 ) {
     Surface(
-        modifier = modifier.clickable(onClick = onClick),
+        modifier = modifier
+            .clickable(onClick = onClick),
         shape = MaterialTheme.shapes.medium,
         color = Color.Transparent,
         shadowElevation = 4.dp
@@ -60,6 +62,7 @@ fun CardBoard(
             if (image != null) Image(
                 painter = painterResource(image),
                 contentDescription = null,
+                contentScale = ContentScale.FillWidth,
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(MaterialTheme.shapes.large)
